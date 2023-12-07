@@ -35,15 +35,13 @@ client.once('ready', (data) => console.log(`Logged in as ${data.user.tag}!`));
 
 client.on(Events.MessageCreate, (message) => {
   fs.readFile(configFilePath, 'utf8', (error, data) => {
-
     const { chatCmdPrefix } = JSON.parse(data);
-
     if (message.author.bot || !message.content.startsWith(chatCmdPrefix)) return;
     const args = message.content.slice(chatCmdPrefix.length).split(/\s+/g);
     const cmd = args.shift().toLowerCase();
     const commandList = commandBuild.commands.find((command) => command.name.includes(cmd));
     if (!commandList) return message.reply(`Invalid command!`);
-    if (commandList.is_staff && !message.member.roles.cache.some((role) => role.id === '1181045218942926901')) return message.reply('Invalid permission!');
+    if (commandList.is_staff && !message.member.roles.cache.some((role) => role.name === 'Staff')) return message.reply('Invalid permission!');
     commandList.callback(message, args);
   });
 });
