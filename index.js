@@ -17,12 +17,12 @@ const client = new Client(
   }
 );
 
+const rest = new REST({ version: '10' }).setToken(token);
 const configFilePath = './library/build/config.json';
 
 (async () => {
   try {
     const slashCommands = [];
-    const rest = new REST({ version: '10' }).setToken(token);
     const data = await rest.put(Routes.applicationCommands(clientId), { body: slashCommands });
     await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: slashCommands });
     console.log(`Successfully reloaded ${data.length} (/) commands.`);
