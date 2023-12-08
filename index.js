@@ -39,7 +39,7 @@ client.once('ready', async (data) => {
     const data = await rest.put(Routes.applicationCommands(clientId), { body: slashCommands });
     //await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: slashCommands });
     console.log(`Successfully reloaded ${data.length} (/) commands.`);
-  } catch (error) { console.error(`Error while registering ${data.length} (/) commands: ${error}`); }
+  } catch (error) { console.error(`Error while registering ${data.length} (/) commands: ${error}`) };
 });
 
 client.on(Events.MessageCreate, (message) => {
