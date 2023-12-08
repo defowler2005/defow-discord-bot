@@ -34,6 +34,10 @@ const rest = new REST({ version: '10' }).setToken(token);
 client.once('ready', async (data) => {
   console.log(`Logged in as ${data.user.tag}!`);
   try {
+    /**
+    * Array of slash command objects.
+    * @type {Array<Object>}
+    */
     const slashCommands = [];
     const data = await rest.put(Routes.applicationCommands(clientId), { body: slashCommands });
     //await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: slashCommands });
