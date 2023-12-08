@@ -16,8 +16,6 @@ commandBuild.create(
             return message.reply('Invalid prefix. Prefix must not exceed 6 characters.');
         }
 
-        const newPrefix = args[0];
-
         fs.readFile(configFilePath, 'utf8', (error, data) => {
             if (error) {
                 console.error('Error reading file:', error);
@@ -25,7 +23,7 @@ commandBuild.create(
             }
 
             const jsonData = JSON.parse(data);
-            jsonData.chatCmdPrefix = newPrefix;
+            jsonData.chatCmdPrefix = args[0];
 
             fs.writeFile(configFilePath, JSON.stringify(jsonData, null, 2), 'utf8', (err) => {
                 if (err) {
@@ -33,7 +31,7 @@ commandBuild.create(
                     return message.reply('An error occurred while updating the prefix.');
                 }
 
-                message.reply(`Chat command prefix updated to: ${newPrefix}`);
+                message.reply(`Chat command prefix updated to: ${args[0]}`);
             });
         });
     }
