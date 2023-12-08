@@ -32,18 +32,17 @@ const client = new Client(
 
 const rest = new REST({ version: '10' }).setToken(token);
 
-(async () => {
+client.once('ready', async (data) => {
+  console.log(`Logged in as ${data.user.tag}!`);
   try {
     const slashCommands = [];
     const data = await rest.put(Routes.applicationCommands(clientId), { body: slashCommands });
     //await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: slashCommands });
     console.log(`Successfully reloaded ${data.length} (/) commands.`);
   } catch (error) { console.error(`Error while registering ${data.length} (/) commands: ${error}`); }
-})();
+});
 
-client.once('ready', (data) => console.log(`Logged in as ${data.user.tag}!`));
-
-client.on(Events.MessageCreate, async (message) => {
+client.on(Events.MessageCreate, (message) => {
   fs.readFile('./library/build/config.json', 'utf8', async (error, data) => {
     const { chatCmdPrefix } = JSON.parse(data);
     if (message.author.bot || !message.content.startsWith(chatCmdPrefix)) return;
