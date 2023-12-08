@@ -34,13 +34,9 @@ const rest = new REST({ version: '10' }).setToken(token);
 
 (async () => {
   try {
-    const slashCommands = [
-      {
-        name: 'prefix',
-        description: 'Change the command prefix configurations',
-      }
-    ];
+    const slashCommands = [];
     const data = await rest.put(Routes.applicationCommands(clientId), { body: slashCommands });
+    //await rest.put(Routes.applicationGuildCommands(clientId), { body: slashCommands });
     console.log(`Successfully reloaded ${data.length} (/) commands.`);
   } catch (error) {
     console.error(error);
