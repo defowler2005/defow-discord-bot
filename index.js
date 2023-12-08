@@ -31,7 +31,6 @@ const client = new Client(
 );
 
 const rest = new REST({ version: '10' }).setToken(token);
-const configFilePath = './library/build/config.json';
 
 (async () => {
   try {
@@ -51,7 +50,7 @@ const configFilePath = './library/build/config.json';
 client.once('ready', (data) => console.log(`Logged in as ${data.user.tag}!`));
 
 client.on(Events.MessageCreate, async (message) => {
-  fs.readFile(configFilePath, 'utf8', async (error, data) => {
+  fs.readFile('./library/build/config.json', 'utf8', async (error, data) => {
     const { chatCmdPrefix } = JSON.parse(data);
     if (message.author.bot || !message.content.startsWith(chatCmdPrefix)) return;
     const args = message.content.slice(chatCmdPrefix.length).split(/\s+/g);

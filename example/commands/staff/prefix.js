@@ -1,8 +1,6 @@
 const fs = require('fs');
 const commandBuild = require('../../../library/build/classes/commandBuilder.js')
 
-const configFilePath = './library/build/config.json';
-
 commandBuild.create(
     {
         name: 'prefix',
@@ -16,7 +14,7 @@ commandBuild.create(
             return message.reply('Invalid prefix. Prefix must not exceed 6 characters.');
         }
 
-        fs.readFile(configFilePath, 'utf8', (error, data) => {
+        fs.readFile('./library/build/config.json', 'utf8', (error, data) => {
             if (error) {
                 console.error('Error reading file:', error);
                 return message.reply('An error occurred while reading the configuration file.');
@@ -25,7 +23,7 @@ commandBuild.create(
             const jsonData = JSON.parse(data);
             jsonData.chatCmdPrefix = args[0];
 
-            fs.writeFile(configFilePath, JSON.stringify(jsonData, null, 2), 'utf8', (err) => {
+            fs.writeFile('./library/build/config.json', JSON.stringify(jsonData, null, 2), 'utf8', (err) => {
                 if (err) {
                     console.error('Error writing to file:', err);
                     return message.reply('An error occurred while updating the prefix.');
