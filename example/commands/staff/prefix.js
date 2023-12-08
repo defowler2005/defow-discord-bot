@@ -27,9 +27,8 @@ commandBuild.create(
                 if (err) {
                     console.error('Error writing to file:', err);
                     return message.reply('An error occurred while updating the prefix.');
-                }
-
-                message.reply(`Chat command prefix updated to: ${args[0]}`);
+                };
+                message.reply(`# Chat command prefix updated to: `+ '`' + args[0] + '`' );
             });
         });
     }
