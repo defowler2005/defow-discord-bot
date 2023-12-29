@@ -1,7 +1,7 @@
 const { Client, GatewayIntentBits, Events, REST, Routes } = require('discord.js');
 const commandBuild = require('./library/build/classes/commandBuilder.js');
 const { token, guildId, clientId } = require('./library/build/config.json');
-require('./example/commands/staff/prefix.js')
+require('./example/commands/staff/prefix.js');
 const fs = require('fs');
 
 const client = new Client(
@@ -46,7 +46,7 @@ client.once('ready', async (data) => {
 });
 
 client.on(Events.MessageCreate, (message) => {
-  fs.readFile('./library/build/config.json', 'utf8', async (error, data) => {
+  fs.readFile('./library/build/config.json', 'utf8', async (_, data) => {
     const { chatCmdPrefix } = JSON.parse(data);
     if (message.author.bot || !message.content.startsWith(chatCmdPrefix)) return;
     const args = message.content.slice(chatCmdPrefix.length).split(/\s+/g);
