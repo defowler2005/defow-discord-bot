@@ -1,0 +1,20 @@
+{
+  "name": "defow-discord-bot",
+  "version": "0.0.1",
+  "description": "defowler2005 discord bot.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/defowler2005/defow-discord-bot.git"
+  },
+  "keywords": [],
+  "author": "defowler2005",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/defowler2005/defow-discord-bot/issues"
+  },
+  "homepage": "https://github.com/defowler2005/defow-discord-bot#readme"
+}

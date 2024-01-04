@@ -2,6 +2,7 @@
  * A class for registering commands.
  * @class
  */
+
 class commandBuilder {
     /**
      * The constructor for the commandBuilder class.
@@ -14,9 +15,9 @@ class commandBuilder {
     /**
      * Creates a new command and registers it.
      * @param {Object} info - Information about the command.
-     * @param {string} info.name - The name of the command.
-     * @param {boolean} [info.is_staff=false] - Indicates if the command is for staff only.
-     * @param {string} [info.description=''] - A brief description of the command.
+     * @param {String} info.name - The name of the command.
+     * @param {Boolean} [info.is_staff=false] - Indicates if the command is for staff only.
+     * @param {String} [info.description=''] - A brief description of the command.
      * @param {Function} callback - The function to execute when the command is invoked.
      */
     create(info, callback) {
