@@ -36,7 +36,7 @@ class commandBuilder {
      * @returns {Array<Object>} - An array of commands.
      */
     getCommands(is_staff = false) {
-        return this.commands.filter((cmd) => cmd.is_staff === is_staff);
+        return this.commands.filter((cmd) => cmd.is_staff === is_staff || false);
     }
 }
 
