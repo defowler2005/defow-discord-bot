@@ -1,9 +1,9 @@
-const fs = require('fs');
 const { Client, GatewayIntentBits, Events, REST, Routes } = require('discord.js');
 const commandBuild = require('./library/build/classes/commandBuilder.js');
 const { token, guildId, clientId } = require('./library/build/config.json');
 require('./example/commands/staff/prefix.js');
 require('./example/commands/user/ping.js');
+const fs = require('fs');
 
 const client = new Client(
   {
