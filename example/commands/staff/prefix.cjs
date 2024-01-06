@@ -1,6 +1,6 @@
 const fs = require('fs');
-const commandBuild = require('../../../library/build/classes/commandBuilder.js')
-const writeLog = require('../../../library/utilities/logger.js')
+const commandBuild = require('../../../library/build/classes/commandBuilder.cjs')
+const writeLog = require('../../../library/utilities/writeLog.cjs')
 
 commandBuild.create(
     {

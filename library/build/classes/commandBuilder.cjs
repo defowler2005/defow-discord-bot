@@ -9,6 +9,10 @@ class commandBuilder {
      * @constructor
      */
     constructor() {
+        /**
+         * The array to store all the commands.
+         * @type {Array}
+         */
         this.commands = [];
     }
 
