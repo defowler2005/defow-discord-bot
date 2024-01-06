@@ -11,7 +11,7 @@ const client = new Client(
     intents: [
       GatewayIntentBits?.AutoModerationConfiguration || 1048576,
       GatewayIntentBits?.AutoModerationExecution || 2097152,
-      GatewayIntentBits.DirectMessageReactions || 8192,
+      GatewayIntentBits?.DirectMessageReactions || 8192,
       GatewayIntentBits?.DirectMessageTyping || 16384,
       GatewayIntentBits?.DirectMessages || 4096,
       GatewayIntentBits?.GuildEmojisAndStickers || 8,
