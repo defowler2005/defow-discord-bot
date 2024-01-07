@@ -4,13 +4,16 @@
   "description": "defowler2005 discord bot.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.cjs"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/defowler2005/defow-discord-bot.git"
   },
   "keywords": [],
+  "dependencies": {
+    "discord.js": "latest"
+  },
   "author": "defowler2005",
   "license": "UNLICENSED",
   "bugs": {
