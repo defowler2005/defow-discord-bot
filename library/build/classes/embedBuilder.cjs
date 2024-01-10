@@ -37,32 +37,32 @@ class embedBuild {
 
         if (info.url) this.embed.setURL(info.url);
         if (info.authorName || info.authorIconURL || info.authorURL) {
-            this.embed.setAuthor({
-                name: info.authorName,
-                iconURL: info.authorIconURL,
-                url: info.authorURL
-            });
+            this.embed.setAuthor(
+                {
+                    name: info.authorName,
+                    iconURL: info.authorIconURL,
+                    url: info.authorURL
+                }
+            )
         }
         if (info.description) this.embed.setDescription(info.description);
         if (info.thumbnailURL) this.embed.setThumbnail(info.thumbnailURL);
 
         if (info.fields) {
-            info.fields.forEach(field => {
-                this.embed.addFields(field);
-            });
+            info.fields.forEach(field => { this.embed.addFields(field) })
         }
 
         if (info.imageURL) this.embed.setImage(info.imageURL);
         if (info.timestamp) this.embed.setTimestamp(1);
         if (info.footerText || info.footerIconURL) {
-            this.embed.setFooter({
-                text: info.footerText,
-                iconURL: info.footerIconURL
-            });
-        }
-
-        callback(this.embed);
+            this.embed.setFooter(
+                {
+                    text: info.footerText,
+                    iconURL: info.footerIconURL
+                }
+            );
+        }; callback(this.embed);
     }
-}
+};
 
 module.exports = embedBuild;
