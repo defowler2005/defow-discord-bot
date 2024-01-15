@@ -1,4 +1,4 @@
-const fs = require('fs');
+const client = require('../../../index.cjs');
 const commandBuild = require('../../../library/build/classes/commandBuilder.cjs');
 const writeLog = require('../../../library/utilities/writeLog.cjs');
 
@@ -9,15 +9,7 @@ commandBuild.create(
         is_staff: true,
     },
     async (message, args) => {
-        message.delete();
-
-        // Check if the user is the owner or a staff member
-        const isOwner = message.guild.ownerID === message.author.id;
-        const isStaff = message.member.roles.cache.some(role => role.name === 'Staff'); // Adjust role name as needed
-
-        if (!(isOwner || isStaff)) {
-            return message.reply('You do not have permission to manage roles.');
-        }
+        // message.delete(); // Uncomment this line if you want to delete the user's command message
 
         const member = message.mentions.members.first();
         if (!member) {
@@ -28,11 +20,6 @@ commandBuild.create(
 
         if (!role) {
             return message.reply('Role not found.');
-        }
-
-        // Check if the user has the same or higher permissions than the role they are trying to add
-        if (isStaff && message.member.roles.highest.comparePositionTo(role) <= 0) {
-            return message.reply('You cannot add a role with equal or higher permissions.');
         }
 
         const subcommand = args[0].toLowerCase();
@@ -46,10 +33,28 @@ commandBuild.create(
                 await member.roles.remove(role);
                 message.reply(`Removed role ${role.name} from ${member.user.tag}`);
                 break;
-            // Add more cases for other role-related subcommands if needed
+            case 'list':
+                // List roles of the mentioned user or all roles in the server
+                const targetUser = message.mentions.users.first();
+
+                if (!targetUser) {
+                    // List all roles in the server
+                    const roleList = message.guild.roles.cache.map(role => role.name).join(', ');
+                    message.channel.send(`Roles in the server: ${roleList}`);
+                } else {
+                    // List roles of the mentioned user
+                    const member = message.guild.members.cache.get(targetUser.id);
+                    if (member) {
+                        const userRoles = member.roles.cache.map(role => role.name).join(', ');
+                        message.channel.send(`Roles of ${targetUser.tag}: ${userRoles}`);
+                    } else {
+                        message.reply('User not found in the server.');
+                    }
+                }
+                break;
 
             default:
-                message.reply('Invalid subcommand. Usage: !role [add/remove/modify] [@member] [roleName]');
+                message.reply('Invalid subcommand. Usage: !role [add/remove/modify/list] [@member] [roleName]');
         }
 
         writeLog(`User ${message.author.tag} used the role command.`);

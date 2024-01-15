@@ -4,6 +4,7 @@ const commandBuild = require('./library/build/classes/commandBuilder.cjs');
 const { token, guildId, clientId } = require('./library/build/config.json');
 require('./example/commands/staff/prefix.cjs');
 require('./example/commands/staff/say.cjs');
+require('./example/commands/staff/role.cjs');
 require('./example/commands/user/ping.cjs');
 require('./example/commands/user/help.cjs');
 require('./example/commands/user/userInfo.cjs');
@@ -63,3 +64,5 @@ client.on(Events.MessageCreate, (message) => {
 });
 
 client.login(token);
+
+module.exports = client;
