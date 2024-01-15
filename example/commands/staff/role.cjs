@@ -34,24 +34,16 @@ commandBuild.create(
                 message.reply(`Removed role ${role.name} from ${member.user.tag}`);
                 break;
             case 'list':
-                // List roles of the mentioned user or all roles in the server
-                const targetUser = message.mentions.users.first();
+    const targetUser = message.mentions.users.first() || message.author;
 
-                if (!targetUser) {
-                    // List all roles in the server
-                    const roleList = message.guild.roles.cache.map(role => role.name).join(', ');
-                    message.channel.send(`Roles in the server: ${roleList}`);
-                } else {
-                    // List roles of the mentioned user
-                    const member = message.guild.members.cache.get(targetUser.id);
-                    if (member) {
-                        const userRoles = member.roles.cache.map(role => role.name).join(', ');
-                        message.channel.send(`Roles of ${targetUser.tag}: ${userRoles}`);
-                    } else {
-                        message.reply('User not found in the server.');
-                    }
-                }
-                break;
+    const member = message.guild.members.cache.get(targetUser.id);
+    if (member) {
+        const userRoles = member.roles.cache.map(role => role.name).join(', ');
+        message.channel.send(`Roles of ${targetUser.tag}: ${userRoles}`);
+    } else {
+        message.reply('User not found in the server.');
+    }
+    break;
 
             default:
                 message.reply('Invalid subcommand. Usage: !role [add/remove/modify/list] [@member] [roleName]');
