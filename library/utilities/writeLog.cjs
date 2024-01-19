@@ -18,7 +18,7 @@ function writeLog(message) {
         minute: '2-digit',
         second: '2-digit',
         timeZoneName: 'short',
-    })
+    });
 
     fs.appendFile(path.join(__dirname, '../../logs.log'), `${dateTime} - ${message}\n`, (error) => {
         if (error) { console.error('Error writing to log file:', error); return false; } return true;

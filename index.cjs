@@ -65,4 +65,4 @@ client.on(Events.MessageCreate, (message) => {
 
 client.login(token);
 
-module.exports = client;
+module.exports = { client };
