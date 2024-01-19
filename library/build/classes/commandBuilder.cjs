@@ -22,6 +22,7 @@ class commandBuilder {
      * @param {String} info.name - The name of the command.
      * @param {Boolean} [info.is_staff=false] - Indicates if the command is for staff only.
      * @param {String} [info.description=''] - A brief description of the command.
+     * @param {String} [info.usage=''] - Information about how the command should be used.
      * @param {Function} callback - The function to execute when the command is invoked.
      */
     create(info, callback) {
@@ -29,6 +30,7 @@ class commandBuilder {
             name: info.name.split(' '),
             is_staff: info.is_staff || false,
             description: info.description || '',
+            usage: info.usage || '',
             callback,
         };
         this.commands.push(command);

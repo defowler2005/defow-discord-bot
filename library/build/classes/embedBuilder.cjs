@@ -10,8 +10,11 @@ class embedBuild {
      * @constructor
      */
     constructor() {
+        /**
+         * @type {EmbedBuilder}
+         */
         this.embed = new EmbedBuilder();
-    }
+    };
 
     /**
      * Creates and customizes an embed using the provided information.
@@ -30,11 +33,11 @@ class embedBuild {
      * @param {String} [info.footerText] - Set's the text of the footer.
      * @param {String} [info.footerIconURL] - Set's the icon URL of the footer.
      * @param {Function} callback - Callback function to handle the built embed.
+     * @returns {EmbedBuilder}
      */
     create(info, callback) {
         this.embed.setColor(info.setColor);
         this.embed.setTitle(info.title);
-
         if (info.url) this.embed.setURL(info.url);
         if (info.authorName || info.authorIconURL || info.authorURL) {
             this.embed.setAuthor(
@@ -44,16 +47,12 @@ class embedBuild {
                     url: info.authorURL
                 }
             )
-        }
+        };
         if (info.description) this.embed.setDescription(info.description);
         if (info.thumbnailURL) this.embed.setThumbnail(info.thumbnailURL);
-
-        if (info.fields) {
-            info.fields.forEach(field => { this.embed.addFields(field) })
-        }
-
+        if (info.fields) { info.fields.forEach((field) => { this.embed.addFields(field) }) }
         if (info.imageURL) this.embed.setImage(info.imageURL);
-        if (info.timestamp) this.embed.setTimestamp(1);
+        if (info.timestamp) this.embed.setTimestamp(info.timestamp);
         if (info.footerText || info.footerIconURL) {
             this.embed.setFooter(
                 {
@@ -62,6 +61,7 @@ class embedBuild {
                 }
             );
         }; callback(this.embed);
+        return EmbedBuilder;
     }
 };
 
