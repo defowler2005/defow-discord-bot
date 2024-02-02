@@ -36,18 +36,21 @@ const client = new Client(
 
 const rest = new REST({ version: '10' }).setToken(token);
 
-client.once('ready', async (data) => {
-  console.log(`Logged in as ${data.user.tag}!`);
+client.once('ready', async () => {
+  console.log(`Logged in as ${client.user.tag}!`);
   try {
     /**
-    * Array of slash command objects.
-    * @type {Array<Object>}
-    */
+     * Array of slash command objects.
+     * @type {Array<Object>}
+     */
+
     const slashCommands = [];
     const data = await rest.put(Routes.applicationCommands(clientId), { body: slashCommands });
     await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: slashCommands });
     console.log(`Successfully reloaded ${data.length} (/) commands.`);
-  } catch (error) { console.error(`Error while registering ${data.length} (/) commands: ${error}`) };
+  } catch (error) {
+    console.error(`Error while registering ${data.length} (/) commands: ${error}`);
+  }; writeUserInfo();
 });
 
 client.on(Events.MessageCreate, (message) => {
