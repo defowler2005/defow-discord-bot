@@ -4,7 +4,6 @@ const commandBuild = require('./library/build/classes/commandBuilder.cjs');
 const { token, guildId, clientId } = require('./library/build/config.json');
 require('./example/commands/staff/prefix.cjs');
 require('./example/commands/staff/say.cjs');
-require('./example/commands/staff/role.cjs');
 require('./example/commands/user/ping.cjs');
 require('./example/commands/user/help.cjs');
 require('./example/commands/user/userInfo.cjs');
@@ -50,7 +49,7 @@ client.once('ready', async () => {
     console.log(`Successfully reloaded ${data.length} (/) commands.`);
   } catch (error) {
     console.error(`Error while registering ${data.length} (/) commands: ${error}`);
-  }; writeUserInfo();
+  };
 });
 
 client.on(Events.MessageCreate, (message) => {
