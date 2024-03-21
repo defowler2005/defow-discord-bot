@@ -3,8 +3,6 @@
  * @type {Array<String>}
  */
 
-const badWords = [
-    'fuck'
-];
+const badWords = [];
 
 module.exports = badWords;

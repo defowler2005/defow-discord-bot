@@ -7,6 +7,7 @@ require('./example/commands/staff/say.cjs');
 require('./example/commands/user/ping.cjs');
 require('./example/commands/user/help.cjs');
 require('./example/commands/user/userInfo.cjs');
+require('./example/commands/owner/clearallmessages.cjs');
 
 const client = new Client(
   {
@@ -48,14 +49,16 @@ client.once('ready', async () => {
     await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: slashCommands });
     console.log(`Successfully reloaded ${data.length} (/) commands.`);
   } catch (error) {
-    console.error(`Error while registering ${data.length} (/) commands: ${error}`);
+    console.error(`Error while registering ${data.length} (/) commands: ${error}\n${error.stack}`);
   };
 });
 
 client.on(Events.MessageCreate, (message) => {
-  fs.readFile('./library/build/config.json', 'utf8', async (_, data) => {
+  if (message.author.bot === true) return;
+  fs.readFile('./library/build/config.json', 'utf8', async (_, data) => { //config.json here is read again as is because when the prefix is changed, The updated value is not reflected when the file is imported.
     const { chatCmdPrefix } = JSON.parse(data);
-    if (message.author.bot || !message.content.startsWith(chatCmdPrefix)) return;
+    if (!chatCmdPrefix) return message.reply('In the server side the chat command prefix is not defined in `config.json`');
+    if (!message.content.startsWith(chatCmdPrefix)) return;
     const args = message.content.slice(chatCmdPrefix.length).split(/\s+/g);
     const cmd = args.shift().toLowerCase();
     const commandList = commandBuild.commands.find((command) => command.name.includes(cmd));
@@ -66,5 +69,4 @@ client.on(Events.MessageCreate, (message) => {
 });
 
 client.login(token);
-
 module.exports = { client };

@@ -33,7 +33,7 @@ commandBuild.create(
                 thumbnailURL: targetUser.avatarURL() || undefined,
                 timestamp: Date.now(),
                 footerText: 'User Info by defowler',
-                footerIconURL: 'https://raw.githubusercontent.com/defowler2005/defowler2005/main/favicon.png',
+                footerIconURL: 'https://defowler.tech/favicon.png',
             }, (embed) => {
                 message.channel.send({ embeds: [embed] });
             }
