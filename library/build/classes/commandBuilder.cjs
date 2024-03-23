@@ -15,27 +15,27 @@ class commandBuilder {
          */
         this.commands = [];
     }
-
     /**
-     * Creates a new command and registers it.
-     * @param {Object} info - Information about the command.
+     * Creates a new command and adds it to the list of commands.
+     * @param {Object} info - The command information.
      * @param {String} info.name - The name of the command.
-     * @param {Boolean} [info.is_staff=false] - Indicates if the command is for staff only.
-     * @param {String} [info.description=''] - A brief description of the command.
-     * @param {Number} info.command_type - Indicated wether the command is for use as 0: A chat command 1: A /command.
-     * @param {String} [info.usage=''] - Information about how the command should be used.
-     * @param {Function} callback - The function to execute when the command is invoked.
+     * @param {String} info.description - The description of the command.
+     * @param {Boolean} info.isStaff - Set's the permission for staff players.
+     * @param {Array<String>} info.aliases - Like a 2nd command name for the command.
+     * @param {Array<String>} info.usage - An array of strings describing different usages of the command.
+     * @param {Array<String>} info.examples - An array of strings providing usage examples for the command.
+     * @param {Function} callback - The callback function to execute when the command is invoked.
      */
     create(info, callback) {
-        const command = {
-            name: info.name.split(' '),
-            is_staff: info.is_staff || false,
-            description: info.description || '',
-            usage: info.usage || '',
-            command_type: info.command_type || 0,
-            callback,
-        };
-        this.commands.push(command);
+        this.commands.push({
+            name: info.name.split(' ')[0],
+            description: info.description,
+            isStaff: info.isStaff || false,
+            aliases: info.aliases,
+            usage: info.usage,
+            examples: info.examples,
+            callback
+        });
     }
 
     /**
@@ -46,7 +46,7 @@ class commandBuilder {
     getCommands(is_staff = false) {
         return this.commands.filter((cmd) => cmd.is_staff === is_staff || false);
     }
-}
+};
 
 const commandBuild = new commandBuilder();
 
