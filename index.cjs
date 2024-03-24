@@ -6,8 +6,8 @@ require('./example/commands/staff/prefix.cjs');
 require('./example/commands/staff/say.cjs');
 require('./example/commands/user/ping.cjs');
 require('./example/commands/user/help.cjs');
+require('./example/commands/user/bump.cjs');
 require('./example/commands/user/userInfo.cjs');
-require('./example/commands/owner/clearallmessages.cjs');
 
 const client = new Client(
     {

@@ -3,9 +3,9 @@ const path = require('path');
 
 /**
  * A function to write informative logs to the .log file.
- * @function
- * @param {String} message - The message to printo to the file.
+ * @param {String} message - The message to print to the file.
  * @returns {Boolean} - Returns true if the write was successful, else if the write was unsuccessful returns false :(.
+ * @function
  */
 
 function writeLog(message) {

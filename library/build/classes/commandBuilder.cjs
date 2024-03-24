@@ -27,25 +27,34 @@ class commandBuilder {
      * @param {Function} callback - The callback function to execute when the command is invoked.
      */
     create(info, callback) {
-        this.commands.push({
-            name: info.name.split(' ')[0],
-            description: info.description,
-            isStaff: info.isStaff || false,
-            aliases: info.aliases,
-            usage: info.usage,
-            examples: info.examples,
-            callback
-        });
+        this.commands.push(
+            {
+                name: info.name.split(' ')[0],
+                description: info.description,
+                isStaff: info.isStaff || false,
+                aliases: info.aliases,
+                usage: info.usage,
+                examples: info.examples,
+                callback
+            }
+        );
     }
 
-    /**
-     * Gets all registered commands based on staff status.
-     * @param {Boolean} [is_staff=false] - Indicates if staff-only commands should be retrieved.
-     * @returns {Array<Object>} - An array of commands.
-     */
-    getCommands(is_staff = false) {
-        return this.commands.filter((cmd) => cmd.is_staff === is_staff || false);
+    getCommands(arg) {
+        // Check if the argument is a boolean (0 or 1) indicating staff or non-staff commands
+        if (typeof arg === 'boolean') {
+            return this.commands.filter((cmd) => cmd.is_staff === arg);
+        } else if (typeof arg === 'string') {
+            // If the argument is a string, assume it's a command name and return the specific command
+            const commandName = arg.toLowerCase();
+            const command = this.commands.find((cmd) => cmd.name.toLowerCase() === commandName);
+            return command ? [command] : [];
+        } else {
+            // If the argument is neither a boolean nor a string, return all commands
+            return this.commands;
+        }
     }
+
 };
 
 const commandBuild = new commandBuilder();
