@@ -1,62 +1,63 @@
 /**
- * A class for registering commands.
- * @class
+ * Represents a command builder for managing commands.
  */
-
 class commandBuilder {
-    /**
-     * The constructor for the commandBuilder class.
-     * @constructor
-     */
     constructor() {
         /**
-         * The array to store all the commands.
-         * @type {Array}
+         * The array to contain all registered commands.
+         * @type {Array<Object>}
          */
         this.commands = [];
     }
+
     /**
-     * Creates a new command and adds it to the list of commands.
-     * @param {Object} info - The command information.
-     * @param {String} info.name - The name of the command.
-     * @param {String} info.description - The description of the command.
-     * @param {Boolean} info.isStaff - Set's the permission for staff players.
-     * @param {Array<String>} info.aliases - Like a 2nd command name for the command.
-     * @param {Array<String>} info.usage - An array of strings describing different usages of the command.
-     * @param {Array<String>} info.examples - An array of strings providing usage examples for the command.
-     * @param {Function} callback - The callback function to execute when the command is invoked.
+     * Creates a new command and adds it to the commands list.
+     * @param {Object} info - Information about the command.
+     * @param {string} info.name - The name of the command.
+     * @param {string} info.description - The description of the command.
+     * @param {Array<string>} [info.aliases] - Optional aliases for the command.
+     * @param {Array<string>} [info.usage] - Optional usage for the command.
+     * @param {Array<string>} [info.example] - Optional example usage for the command.
+     * @param {boolean} [info.is_staff] - Optional flag indicating if the command is for staff only.
+     * @param {boolean} [info.cancel_message] - Optional boolean to remove the command message from game chat.
+     * @param {Function} callback - The callback function to execute when the command is called.
+     * @param {Function} callbackWM - The callback function for when the command is called with moderation.
      */
-    create(info, callback) {
-        this.commands.push(
-            {
-                name: info.name.split(' ')[0],
-                description: info.description,
-                isStaff: info.isStaff || false,
-                aliases: info.aliases,
-                usage: info.usage,
-                examples: info.examples,
-                callback
-            }
-        );
+    create(info, callback, callbackWM) {
+        const command = {
+            name: info.name,
+            description: info.description,
+            aliases: info.aliases || [],
+            usage: info.usage || [],
+            example: info.example || [],
+            is_staff: info.is_staff || false,
+            cancel_message: info.cancel_message || true,
+            callback,
+            callbackWM: callbackWM || (() => {})
+        }; this.commands.push(command);
     }
 
-    getCommands(arg) {
-        // Check if the argument is a boolean (0 or 1) indicating staff or non-staff commands
-        if (typeof arg === 'boolean') {
-            return this.commands.filter((cmd) => cmd.is_staff === arg);
-        } else if (typeof arg === 'string') {
-            // If the argument is a string, assume it's a command name and return the specific command
-            const commandName = arg.toLowerCase();
-            const command = this.commands.find((cmd) => cmd.name.toLowerCase() === commandName);
-            return command ? [command] : [];
-        } else {
-            // If the argument is neither a boolean nor a string, return all commands
-            return this.commands;
-        }
+    /**
+     * Finds a command by its name or alias.
+     * @param {string} cmd - The command name or alias to search for.
+     * @returns {Object|null} - The command object if found, otherwise null.
+     */
+    findCommand(cmd) {
+        return this.commands.find((cmdObj) => cmdObj.name.includes(cmd) || (cmdObj.aliases && cmdObj.aliases.includes(cmd))) || null;
     }
 
+    /**
+     * Returns all commands that have been registered.
+     * @returns {Array<Object>} - An array containing all registered commands.
+     */
+    getAllCommands() {
+        return this.commands;
+    }
 };
 
+/**
+ * Instance of commandBuilder used for managing commands.
+ */
 const commandBuild = new commandBuilder();
 
 module.exports = commandBuild;
