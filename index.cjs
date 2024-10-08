@@ -1,5 +1,5 @@
 const fs = require('node:fs');
-const { Client, GatewayIntentBits, Events, REST, Routes, MessageCollector  } = require('discord.js');
+const { Client, GatewayIntentBits, Events, REST, Routes, MessageCollector } = require('discord.js');
 const commandBuild = require('./library/build/classes/commandBuilder.cjs');
 const { token, guildId, clientId } = require('./library/build/config.json');
 require('./example/commands/staff/prefix.cjs');
@@ -38,13 +38,16 @@ const rest = new REST({ version: '10' }).setToken(token);
 
 client.once('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    let data;
     try {
         /**
          * Array of slash command objects.
          * @type {Array<Object>}
          */
 
-        const slashCommands = [];
+        const slashCommands = [{ name: 's', description: 's' }];
+        if (slashCommands.length < 1) return;
+
         const data = await rest.put(Routes.applicationCommands(clientId), { body: slashCommands });
         await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: slashCommands });
         console.log(`Successfully reloaded ${data.length} (/) commands.`);
@@ -55,7 +58,7 @@ client.once('ready', async () => {
 
 client.on(Events.MessageCreate, (message) => {
     if (message.author.bot === true) return;
-    fs.readFile('./library/build/config.json', 'utf8', async (_, data) => { //config.json here is read again as is because when the prefix is changed, The updated value is not reflected when the file is imported.
+    fs.readFile('./library/build/config.json', 'UTF8', async (_, data) => { //config.json here is read again as is because when the prefix is changed, The updated value is not reflected when the file is imported.
         const { chatCmdPrefix } = JSON.parse(data);
         if (!chatCmdPrefix) return message.reply('In the server side the chat command prefix is not defined in `config.json`');
         if (!message.content.startsWith(chatCmdPrefix)) return;
