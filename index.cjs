@@ -17,7 +17,7 @@ const client = new Client(
             GatewayIntentBits?.DirectMessageReactions || 8192,
             GatewayIntentBits?.DirectMessageTyping || 16384,
             GatewayIntentBits?.DirectMessages || 4096,
-            GatewayIntentBits?.GuildEmojisAndStickers || 8,
+            GatewayIntentBits?.GuildExpressions || 8,
             GatewayIntentBits?.GuildInvites || 64,
             GatewayIntentBits?.GuildIntegrations || 16,
             GatewayIntentBits?.GuildMembers || 2,
